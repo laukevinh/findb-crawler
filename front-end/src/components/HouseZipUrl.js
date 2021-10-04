@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 
-class HouseZipUrl extends Component {
-  render() {
-    return (
-      <div className="text-center" key={this.props.index}>
-        {this.props.year}: {this.props.url} ({this.props.crawled_on ? "N/A" : this.props.crawled_on})
-      </div>
-    );
-  }
+function HouseZipUrl(props) {
+  const { index, year, url, crawled_on } = props;
+
+  return (
+    <div className="text-center" key={index}>
+      {year}: {url} ({crawled_on ? "N/A" : crawled_on})
+    </div>
+  );
 }
 
 export default HouseZipUrl;

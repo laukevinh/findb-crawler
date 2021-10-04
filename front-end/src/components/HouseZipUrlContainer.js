@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import HouseZipUrl from "./HouseZipUrl";
 
-class HouseZipUrlContainer extends Component {
-  renderHouseZipUrls = houseZipUrls => {
+function HouseZipUrlContainer(props) {
+  const { houseZipUrls } = props;
+
+  const renderHouseZipUrls = houseZipUrls => {
     return houseZipUrls.map(({ year, url, crawled_on }, index) => {
       return (
         <HouseZipUrl
@@ -14,13 +16,12 @@ class HouseZipUrlContainer extends Component {
       );
     })
   }
-  render() {
-    return (
-      <div className="text-center">
-        {this.renderHouseZipUrls(this.props.houseZipUrls)}
-      </div>
-    );
-  }
+
+  return (
+    <div className="text-center">
+      {renderHouseZipUrls(houseZipUrls)}
+    </div>
+  );
 }
 
 export default HouseZipUrlContainer;
