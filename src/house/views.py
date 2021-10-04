@@ -7,10 +7,11 @@ from house.house import get_page_source
 from house.house import get_abs_paths
 from house.house import get_years_from_url
 
-from house.models import get_all_data
+from house.models import get_all_data, get_data_by_year
 from house.models import insert_data
 from house.models import delete_data
 from house.models import house_zip_url
+from house.models import house_fd
 from house.settings import CONNECTION
 
 from sqlalchemy import create_engine
@@ -47,5 +48,30 @@ def index(request):
     return response
 
 def year(request, year: str):
-    response = f"Year {year}"
-    return HttpResponse(response)
+    response = HttpResponse(status=400)
+    engine = create_engine(CONNECTION, future=True)
+    if request.method == 'POST':
+        pass
+    elif request.method == 'GET':
+        results = get_data_by_year(engine, house_fd, year)
+        response = JsonResponse(
+            [
+                {
+                    'prefix': row.prefix,
+                    'last': row.last,
+                    'first': row.first,
+                    'suffix': row.suffix,
+                    'filingtype': row.filing_type,
+                    'statedst': row.state_district,
+                    'year': row.year,
+                    'filingdate': row.filing_date,
+                    'docid': row.doc_id,
+                    'created_on': row.created_on,
+                }
+                for row in results
+            ],
+            safe=False
+        )
+    elif request.method == 'DELETE':
+        pass
+    return response

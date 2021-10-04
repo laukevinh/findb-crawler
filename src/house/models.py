@@ -9,6 +9,7 @@ from sqlalchemy import Integer
 from sqlalchemy import Date
 from sqlalchemy import DateTime
 from sqlalchemy import String
+from sqlalchemy.sql.expression import null
 from sqlalchemy.sql.functions import current_timestamp
 from sqlalchemy.engine import Engine
 from sqlalchemy import insert
@@ -27,15 +28,33 @@ house_zip_url = Table('house_zip_urls', metadata_obj,
                       Column('modified_on', DateTime(), onupdate=current_timestamp()),
                       )
 
+house_fd = Table('house_fd', metadata_obj,
+                 Column('id', Integer, primary_key=True),
+                 Column('prefix', String(60)),
+                 Column('last', String(60), nullable=False),
+                 Column('first', String(60), nullable=False),
+                 Column('suffix', String(60)),
+                 Column('filing_type', String(60), key='filingtype'),
+                 Column('state_district', String(60), key='statedst'),
+                 Column('year', String(60)),
+                 Column('filing_date', Date(), key='filingdate'),
+                 Column('doc_id', String(60), key='docid'),
+                 Column('created_on', DateTime(),
+                         server_default=current_timestamp()),
+                 Column('modified_on', DateTime(), onupdate=current_timestamp()),
+                )
+
 
 def create_tables():
     engine = create_engine(CONNECTION, future=True)
     house_zip_url.create(engine, checkfirst=True)
+    house_fd.create(engine, checkfirst=True)
 
 
 def destroy_tables():
     engine = create_engine(CONNECTION, future=True)
     house_zip_url.drop(engine)
+    house_fd.drop(engine)
 
 
 def insert_data(engine: Engine, table: Table, data):
