@@ -30,10 +30,17 @@ def index(request):
         response = HttpResponse(status=204)
     elif request.method == 'GET':
         results = get_all_data(engine, house_zip_url)
-        response = JsonResponse({
-            row.year: {'url': row.url, 'url_crawled_on': row.url_crawled_on}
-            for row in results
-        })
+        response = JsonResponse(
+            [
+                {
+                    "year": row.year,
+                    'url': row.url, 
+                    'url_crawled_on': row.url_crawled_on
+                }
+                for row in results
+            ],
+            safe=False
+        )
     elif request.method == 'DELETE':
         count = delete_data(engine, house_zip_url)
         response = HttpResponse(status=204)
