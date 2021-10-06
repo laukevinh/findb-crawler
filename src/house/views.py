@@ -3,6 +3,7 @@ from django.http import JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
 
+from house.house import extract_zip_url_as_list
 from house.house import get_page_source
 from house.house import get_abs_paths
 from house.house import get_years_from_url
@@ -47,11 +48,18 @@ def index(request):
         response = HttpResponse(status=204)
     return response
 
+@csrf_exempt
 def year(request, year: str):
     response = HttpResponse(status=400)
     engine = create_engine(CONNECTION, future=True)
     if request.method == 'POST':
-        pass
+        rows = get_data_by_year(engine, house_zip_url, year)
+        if len(rows) == 0:
+            response = HttpResponse(status=404)
+        else:
+            data = extract_zip_url_as_list(rows[0].url)
+            rows = insert_data(engine, house_fd, data)
+            response = HttpResponse(status=200)
     elif request.method == 'GET':
         results = get_data_by_year(engine, house_fd, year)
         response = JsonResponse(
