@@ -83,6 +83,13 @@ def delete_data(engine: Engine, table: Table):
         results = connection.execute(stmt)
         return results.all()
 
+def delete_data_by_year(engine: Engine, table: Table, year: str):
+    with engine.begin() as connection:
+        connection.execute(table.select())
+        stmt = delete(table).where(table.c.year == year).returning(table.c.id)
+        results = connection.execute(stmt)
+        return results.all()
+
 
 if __name__ == '__main__':
     import sys

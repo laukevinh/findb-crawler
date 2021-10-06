@@ -8,7 +8,7 @@ from house.house import get_page_source
 from house.house import get_abs_paths
 from house.house import get_years_from_url
 
-from house.models import get_all_data, get_data_by_year
+from house.models import delete_data_by_year, get_all_data, get_data_by_year
 from house.models import insert_data
 from house.models import delete_data
 from house.models import house_zip_url
@@ -81,5 +81,6 @@ def year(request, year: str):
             safe=False
         )
     elif request.method == 'DELETE':
-        pass
+        count = delete_data_by_year(engine, house_fd, year)
+        response = HttpResponse(status=204)
     return response
