@@ -15,6 +15,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy import insert
 from sqlalchemy import select
 from sqlalchemy import delete
+from sqlalchemy import update
 from .settings import CONNECTION
 
 metadata_obj = MetaData()
@@ -87,6 +88,15 @@ def delete_data_by_year(engine: Engine, table: Table, year: str):
     with engine.begin() as connection:
         connection.execute(table.select())
         stmt = delete(table).where(table.c.year == year).returning(table.c.id)
+        results = connection.execute(stmt)
+        return results.all()
+
+def update_url_crawled(engine: Engine, table: Table, year: str, timestamp):
+    with engine.begin() as connection:
+        connection.execute(table.select())
+        stmt = update(table).where(table.c.year == year)\
+            .values(url_crawled_on=timestamp)\
+            .returning(table.c.id)
         results = connection.execute(stmt)
         return results.all()
 
