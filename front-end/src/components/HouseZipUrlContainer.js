@@ -2,16 +2,17 @@ import React from "react";
 import HouseZipUrl from "./HouseZipUrl";
 
 function HouseZipUrlContainer(props) {
-  const { houseZipUrls } = props;
+  const { houseZipUrls, getHouseFdData } = props;
 
   const renderHouseZipUrls = houseZipUrls => {
-    return houseZipUrls.map(({ year, url, crawled_on }, index) => {
+    return houseZipUrls.map(({ year, url, url_crawled_on }, index) => {
       return (
         <HouseZipUrl
           index={index}
           year={year}
           url={url}
-          crawled_on={crawled_on}
+          url_crawled_on={url_crawled_on}
+          getHouseFdData={getHouseFdData}
         />
       );
     })

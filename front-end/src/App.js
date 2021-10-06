@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import HouseZipUrlContainer from './components/HouseZipUrlContainer';
-import { API_URL } from './constants';
+import { API_URL, API_YEAR_URL } from './constants';
 import { useState } from 'react';
 
 function App() {
@@ -35,16 +35,36 @@ function App() {
     })
   }
 
+  const getHouseFdData = (year) => {
+    fetch(API_YEAR_URL + year + '/').then(response => {
+      return response.json();
+    }).then(json => {
+      console.log(json);
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
+
+  const refreshHouseFdData = () => { }
+
+  const deleteHouseFdData = () => { }
+
   return (
     <div className="App">
       <h2>House Financial Disclosures Zip Urls</h2>
-      <HouseZipUrlContainer houseZipUrls={houseZipUrls} />
+      <HouseZipUrlContainer
+        houseZipUrls={houseZipUrls}
+        getHouseFdData={getHouseFdData}
+      />
       <button onClick={getHouseZipUrls}>SHOW</button>
       <button onClick={refreshHouseZipUrls}>REFRESH</button>
       <button onClick={deleteHouseZipUrls}>DELETE</button>
       <div>
         {apiResponse ? `API Response ${apiResponse}` : ""}
       </div>
+      <br />
+      <br />
+      <h2>Transactions</h2>
     </div>
   );
 }
