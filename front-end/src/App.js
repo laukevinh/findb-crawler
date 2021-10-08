@@ -8,20 +8,6 @@ import HouseFdContainer from './components/HouseFdContainer';
 function App() {
   const [houseFdData, setHouseFdData] = useState([]);
 
-  const getHouseFdData = (year) => {
-    fetch(API_YEAR_URL + year + '/').then(response => {
-      return response.json();
-    }).then(json => {
-      console.log(json);
-    }).catch(err => {
-      console.log("Fetch error", err);
-    })
-  }
-
-  const refreshHouseFdData = () => { }
-
-  const deleteHouseFdData = () => { }
-
   return (
     <div className="App">
       <h2>House Financial Disclosures Zip Urls</h2>
