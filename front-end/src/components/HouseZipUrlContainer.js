@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { API_URL } from "../constants";
 import HouseZipUrl from "./HouseZipUrl";
 
 function HouseZipUrlContainer(props) {
-  const { houseZipUrls, getHouseFdData } = props;
+  const { setHouseFdData } = props;
+  const [houseZipUrls, setHouseZipUrls] = useState([]);
+  const [apiResponse, setApiResponse] = useState('');
+
+  const getHouseZipUrls = () => {
+    fetch(API_URL).then(response => {
+      setApiResponse(response.status)
+      return response.json();
+    }).then(json => {
+      setHouseZipUrls(json);
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
+
+  const deleteHouseZipUrls = () => {
+    fetch(API_URL, { method: 'DELETE' }).then(response => {
+      setApiResponse(response.status);
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
+
+  const refreshHouseZipUrls = () => {
+    fetch(API_URL, { method: 'POST' }).then(response => {
+      setApiResponse(response.status);
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
 
   const renderHouseZipUrls = houseZipUrls => {
     return houseZipUrls.map(({ year, url, url_crawled_on }, index) => {
@@ -12,7 +42,7 @@ function HouseZipUrlContainer(props) {
           year={year}
           url={url}
           url_crawled_on={url_crawled_on}
-          getHouseFdData={getHouseFdData}
+          setHouseFdData={setHouseFdData}
         />
       );
     })
@@ -20,7 +50,17 @@ function HouseZipUrlContainer(props) {
 
   return (
     <div className="text-center">
-      {renderHouseZipUrls(houseZipUrls)}
+      <div>
+        {renderHouseZipUrls(houseZipUrls)}
+      </div>
+      <div>
+        <button onClick={getHouseZipUrls}>SHOW</button>
+        <button onClick={refreshHouseZipUrls}>REFRESH</button>
+        <button onClick={deleteHouseZipUrls}>DELETE</button>
+      </div>
+      <div>
+        {apiResponse ? `API Response ${apiResponse}` : ""}
+      </div>
     </div>
   );
 }
