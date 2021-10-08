@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { API_YEAR_URL } from "../constants";
 
 function HouseZipUrl(props) {
   const { index, year, url, url_crawled_on, setHouseFdData } = props;
+  const [lastCrawledDate, setLastCrawledDate] = useState(url_crawled_on);
 
   const getHouseFdData = year => {
     fetch(API_YEAR_URL + year + '/').then(response => {
@@ -14,12 +15,22 @@ function HouseZipUrl(props) {
     })
   }
 
+  const refreshHouseFdData = year => {
+    fetch(API_YEAR_URL + year + '/', { method: 'POST' }).then(response => {
+      setLastCrawledDate(new Date().toLocaleDateString())
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
+
+  const deleteHouseFdData = () => { }
+
   return (
     <div className="text-center" key={index}>
-      {year}: {url} ({url_crawled_on === null ? "N/A" : url_crawled_on})
+      {year}: {url} ({lastCrawledDate === null ? "N/A" : lastCrawledDate})
       <button onClick={() => getHouseFdData(year)}>Show</button>
-      <button>Refresh</button>
-      <button>Delete</button>
+      <button onClick={() => refreshHouseFdData(year)}>Refresh</button>
+      <button onClick={() => deleteHouseFdData(year)}>Delete</button>
     </div>
   );
 }
