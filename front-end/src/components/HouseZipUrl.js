@@ -23,7 +23,13 @@ function HouseZipUrl(props) {
     })
   }
 
-  const deleteHouseFdData = () => { }
+  const deleteHouseFdData = year => {
+    fetch(API_YEAR_URL + year + '/', { method: 'DELETE' }).then(response => {
+      setLastCrawledDate("N/A");
+    }).catch(err => {
+      console.log("Fetch error", err);
+    })
+  }
 
   return (
     <div className="text-center" key={index}>
