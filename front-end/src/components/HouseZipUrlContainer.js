@@ -12,6 +12,13 @@ function HouseZipUrlContainer(props) {
       setApiResponse(response.status)
       return response.json();
     }).then(json => {
+      json.sort((a, b) => {
+        if (a.year < b.year)
+          return -1;
+        else if (a.year > b.year)
+          return 1;
+        return 0;
+      });
       setHouseZipUrls(json);
     }).catch(err => {
       console.log("Fetch error", err);
