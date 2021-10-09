@@ -2,10 +2,10 @@ import React from "react";
 
 function HouseFdEntry(props) {
   const { index, prefix, last, first, suffix, filingtype,
-    statedst, year, filingdate, docid, created_on } = props;
+    statedst, year, filingdate, docid } = props;
 
   return (
-    <tr className="text-center" key={index}>
+    <tr className="text-center" key={index.toString()}>
       <td>{index}</td>
       <td>{prefix}</td>
       <td>{last}</td>

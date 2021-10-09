@@ -32,7 +32,7 @@ function HouseZipUrl(props) {
   }
 
   return (
-    <div className="text-center" key={index}>
+    <div className="text-center" key={index.toString()}>
       {year}: {url} ({lastCrawledDate === null ? "N/A" : lastCrawledDate})
       <button onClick={() => getHouseFdData(year)}>Show</button>
       <button onClick={() => refreshHouseFdData(year)}>Refresh</button>
