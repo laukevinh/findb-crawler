@@ -7,16 +7,18 @@ function HouseFdContainer(props) {
   return (
     <table className="text-center">
       <thead>
-        <td>index</td>
-        <td>prefix</td>
-        <td>last</td>
-        <td>first</td>
-        <td>suffix</td>
-        <td>filingtype</td>
-        <td>statedst</td>
-        <td>year</td>
-        <td>filingdate</td>
-        <td>docid</td>
+        <tr>
+          <th>index</th>
+          <th>prefix</th>
+          <th>last</th>
+          <th>first</th>
+          <th>suffix</th>
+          <th>filingtype</th>
+          <th>statedst</th>
+          <th>year</th>
+          <th>filingdate</th>
+          <th>docid</th>
+        </tr>
       </thead>
       <tbody>
         {
