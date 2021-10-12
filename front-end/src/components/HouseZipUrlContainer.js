@@ -66,13 +66,10 @@ function HouseZipUrlContainer(props) {
         <Button onClick={refreshHouseZipUrls}>REFRESH</Button>
         <Button onClick={deleteHouseZipUrls}>DELETE</Button>
       </Segment>
-      <Segment attached>
+      <Segment attached='bottom'>
         <Grid columns={3}>
           {renderHouseZipUrls(houseZipUrls)}
         </Grid>
-      </Segment>
-      <Segment attached='bottom'>
-        {apiResponse ? `API Response ${apiResponse}` : ""}
       </Segment>
     </Container>
   );
