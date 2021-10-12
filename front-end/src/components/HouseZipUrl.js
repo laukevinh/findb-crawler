@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, ButtonGroup, Grid, Header } from "semantic-ui-react";
 import { API_YEAR_URL } from "../constants";
 
 function HouseZipUrl(props) {
@@ -32,12 +33,24 @@ function HouseZipUrl(props) {
   }
 
   return (
-    <div className="text-center" key={index.toString()}>
-      {year}: {url} ({lastCrawledDate === null ? "N/A" : lastCrawledDate})
-      <button onClick={() => getHouseFdData(year)}>Show</button>
-      <button onClick={() => refreshHouseFdData(year)}>Refresh</button>
-      <button onClick={() => deleteHouseFdData(year)}>Delete</button>
-    </div>
+    <Grid.Column color={lastCrawledDate ? 'blue' : null}>
+      <Grid.Row>
+        <Header as='h3' inverted={lastCrawledDate !== null}>
+          {year}
+          <Header.Subheader>
+            Last crawled: {lastCrawledDate ? lastCrawledDate.slice(0, 10) : "N/A"}
+          </Header.Subheader>
+        </Header>
+      </Grid.Row>
+      <Grid.Row>
+        <ButtonGroup>
+          <Button as='a' href={url}>Source</Button>
+          <Button onClick={() => getHouseFdData(year)}>Show</Button>
+          <Button onClick={() => refreshHouseFdData(year)}>Refresh</Button>
+          <Button onClick={() => deleteHouseFdData(year)}>Delete</Button>
+        </ButtonGroup>
+      </Grid.Row>
+    </Grid.Column>
   );
 }
 
