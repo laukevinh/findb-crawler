@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Container, Divider, Grid, Header, Segment } from "semantic-ui-react";
 import { API_URL } from "../constants";
 import HouseZipUrl from "./HouseZipUrl";
 
@@ -56,19 +57,21 @@ function HouseZipUrlContainer(props) {
   }
 
   return (
-    <div className="text-center">
-      <div>
-        {renderHouseZipUrls(houseZipUrls)}
-      </div>
-      <div>
-        <button onClick={getHouseZipUrls}>SHOW</button>
-        <button onClick={refreshHouseZipUrls}>REFRESH</button>
-        <button onClick={deleteHouseZipUrls}>DELETE</button>
-      </div>
-      <div>
-        {apiResponse ? `API Response ${apiResponse}` : ""}
-      </div>
-    </div>
+    <Container>
+      <Header as='h1'>
+        House Financial Disclosures Zip Urls
+      </Header>
+      <Segment attached='top'>
+        <Button small onClick={getHouseZipUrls}>SHOW</Button>
+        <Button onClick={refreshHouseZipUrls}>REFRESH</Button>
+        <Button onClick={deleteHouseZipUrls}>DELETE</Button>
+      </Segment>
+      <Segment attached='bottom'>
+        <Grid columns={3}>
+          {renderHouseZipUrls(houseZipUrls)}
+        </Grid>
+      </Segment>
+    </Container>
   );
 }
 
