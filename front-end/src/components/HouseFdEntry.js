@@ -6,7 +6,7 @@ function HouseFdEntry(props) {
     statedst, year, filingdate, docid } = props;
 
   return (
-    <Table.Row className="text-center" key={index.toString()}>
+    <Table.Row key={index.toString()}>
       <Table.Cell>{index}</Table.Cell>
       <Table.Cell>{prefix}</Table.Cell>
       <Table.Cell>{last}</Table.Cell>
