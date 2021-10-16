@@ -15,7 +15,10 @@ function App() {
         setHouseFdData={setHouseFdData}
       />
       <Divider hidden />
-      <HouseFdContainer houseFdData={houseFdData} />
+      <HouseFdContainer
+        houseFdData={houseFdData}
+        setHouseFdData={setHouseFdData}
+      />
 
     </div>
   );
