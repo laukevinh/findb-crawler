@@ -34,39 +34,41 @@ function HouseFdContainer(props) {
       <Header as='h1'>
         House Financial Disclosure Details
       </Header>
-      <Table sortable celled>
-        <Table.Header>
-          <Table.Row>
+      <Container style={{ overflow: 'auto', maxHeight: '600px' }}>
+        <Table sortable celled >
+          <Table.Header>
+            <Table.Row>
+              {
+                headerCellTitles.map(title => {
+                  return (
+                    <Table.HeaderCell
+                      sorted={column === title ?
+                        (isAscending ? 'ascending' : 'descending')
+                        : null
+                      }
+                      onClick={() => sortByColumn(title)}
+                    >
+                      {title}
+                    </Table.HeaderCell>
+                  );
+                })
+              }
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {
-              headerCellTitles.map(title => {
+              houseFdData.map((entry, index) => {
                 return (
-                  <Table.HeaderCell
-                    sorted={column === title ?
-                      (isAscending ? 'ascending' : 'descending')
-                      : null
-                    }
-                    onClick={() => sortByColumn(title)}
-                  >
-                    {title}
-                  </Table.HeaderCell>
-                );
+                  <HouseFdEntry
+                    index={index}
+                    {...entry}
+                  />
+                )
               })
             }
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {
-            houseFdData.map((entry, index) => {
-              return (
-                <HouseFdEntry
-                  index={index}
-                  {...entry}
-                />
-              )
-            })
-          }
-        </Table.Body>
-      </Table>
+          </Table.Body>
+        </Table>
+      </Container>
     </Container>
   );
 }
