@@ -29,6 +29,13 @@ function HouseFdContainer(props) {
     setHouseFdData(data);
   }
 
+  const getDocType = (doctype) => {
+    if (!doctype || typeof doctype !== "string" || doctype.toUpperCase() !== 'P') {
+      return 'financial';
+    }
+    return 'ptr'
+  }
+
   return (
     <Container>
       <Header as='h1'>
@@ -61,6 +68,7 @@ function HouseFdContainer(props) {
                 return (
                   <HouseFdEntry
                     index={index}
+                    doctype={getDocType(entry.filingtype)}
                     {...entry}
                   />
                 )

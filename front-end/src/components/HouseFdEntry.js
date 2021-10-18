@@ -2,8 +2,9 @@ import React from "react";
 import { Table } from "semantic-ui-react";
 
 function HouseFdEntry(props) {
-  const { index, prefix, last, first, suffix, filingtype,
+  const { index, doctype, prefix, last, first, suffix, filingtype,
     statedst, year, filingdate, docid } = props;
+  const url = `https://disclosures-clerk.house.gov/public_disc/${doctype}-pdfs/${year}/${docid}.pdf`
 
   return (
     <Table.Row key={index.toString()}>
@@ -16,7 +17,9 @@ function HouseFdEntry(props) {
       <Table.Cell>{statedst}</Table.Cell>
       <Table.Cell>{year}</Table.Cell>
       <Table.Cell>{filingdate}</Table.Cell>
-      <Table.Cell>{docid}</Table.Cell>
+      <Table.Cell >
+        <a href={url}>{docid}</a>
+      </Table.Cell>
     </Table.Row>
   );
 }
