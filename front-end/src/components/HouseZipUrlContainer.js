@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Container, Divider, Grid, Header, Segment } from "semantic-ui-react";
 import { API_URL } from "../constants";
 import HouseZipUrl from "./HouseZipUrl";
@@ -7,6 +7,10 @@ function HouseZipUrlContainer(props) {
   const { setHouseFdData } = props;
   const [houseZipUrls, setHouseZipUrls] = useState([]);
   const [apiResponse, setApiResponse] = useState('');
+
+  useEffect(() => {
+    getHouseZipUrls();
+  }, [])
 
   const getHouseZipUrls = () => {
     fetch(API_URL).then(response => {
@@ -62,7 +66,6 @@ function HouseZipUrlContainer(props) {
         House Financial Disclosures Zip Urls
       </Header>
       <Segment attached='top'>
-        <Button small onClick={getHouseZipUrls}>SHOW</Button>
         <Button onClick={refreshHouseZipUrls}>REFRESH</Button>
         <Button onClick={deleteHouseZipUrls}>DELETE</Button>
       </Segment>
