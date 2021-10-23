@@ -18,7 +18,7 @@ function HouseFdEntry(props) {
       <Table.Cell>{year}</Table.Cell>
       <Table.Cell>{filingdate}</Table.Cell>
       <Table.Cell >
-        <a href={url}>{docid}</a>
+        <a href={url} target='_blank'>{docid}</a>
       </Table.Cell>
     </Table.Row>
   );
